@@ -14,7 +14,6 @@ namespace Drive.Data.Entities.Models
 
         public ICollection<Folder> Folders { get; set; } = new List<Folder>();
         public ICollection<File> Files { get; set; } = new List<File>();
-        public ICollection<SharedItem> SharedItems { get; set; } = new List<SharedItem>();
 
         public User(string email, string password)
         {
