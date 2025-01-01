@@ -1,4 +1,5 @@
 ﻿using Drive.Data.Entities.Models;
+using Drive.Data.Seeds;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
@@ -105,8 +106,8 @@ namespace Drive.Data.Entities
                 .HasForeignKey(s => s.FileId)
                 .OnDelete(DeleteBehavior.Cascade);
 
-            //DatabaseSeeder.Seed(modelBuilder);
-            //base.OnModelCreating(modelBuilder);
+            DatabaseSeeder.Seed(modelBuilder);
+            base.OnModelCreating(modelBuilder);
         }
     }
 
