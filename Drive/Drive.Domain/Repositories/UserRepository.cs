@@ -20,5 +20,11 @@ namespace Drive.Domain.Repositories
         {
             return DbContext.Users.FirstOrDefault(u => u.Email == email);
         }
+
+        public ResponseResultType Add(User user)
+        {
+            DbContext.Users.Add(user);
+            return SaveChanges();
+        }
     }
 }

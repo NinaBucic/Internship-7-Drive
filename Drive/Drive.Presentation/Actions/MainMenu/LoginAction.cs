@@ -1,5 +1,6 @@
 ﻿using Drive.Domain.Repositories;
 using Drive.Presentation.Abstractions;
+using Drive.Presentation.Factories;
 using Drive.Presentation.Helpers;
 using System;
 using System.Collections.Generic;
@@ -61,7 +62,9 @@ namespace Drive.Presentation.Actions.MainMenu
 
                 Console.WriteLine("Login successful! Press any key to continue...");
                 Console.ReadKey();
-                Console.Clear();
+
+                var userMenu = UserMenuFactory.Create();
+                userMenu.Open();
                 break;
             }
         }

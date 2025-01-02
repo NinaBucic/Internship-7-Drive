@@ -18,10 +18,4 @@
     <ProjectReference Include="..\Drive.Domain\Drive.Domain.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Actions\DiskMenu\" />
-    <Folder Include="Actions\ProfileMenu\" />
-    <Folder Include="Actions\SharedMenu\" />
-  </ItemGroup>
-
 </Project>
