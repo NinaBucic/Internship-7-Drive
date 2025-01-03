@@ -1,5 +1,6 @@
 ﻿using Drive.Data.Entities.Models;
 using Drive.Domain.Enums;
+using Drive.Domain.Factories;
 using Drive.Domain.Repositories;
 using Drive.Presentation.Abstractions;
 using Drive.Presentation.Helpers;
@@ -93,6 +94,38 @@ namespace Drive.Presentation.Actions.DiskMenu
 
                     var editAction = new EditFileAction(file,_fileRepository);
                     editAction.Open();
+                    continue;
+                }
+
+                if (CommandParser.TryParseShareCommand(command, out var itemToShare, out var emailToShareWith))
+                {
+                    var shareAction = new ShareItemAction(
+                        _folderRepository,
+                        _fileRepository,
+                        RepositoryFactory.Create<UserRepository>(),
+                        RepositoryFactory.Create<SharedItemRepository>(),
+                        _currentUser,
+                        _currentFolder
+                    );
+
+                    shareAction.SetParameters(itemToShare, emailToShareWith);
+                    shareAction.Open();
+                    continue;
+                }
+
+                if (CommandParser.TryParseUnshareCommand(command, out var itemToUnshare, out var emailToUnshareWith))
+                {
+                    var unshareAction = new UnshareItemAction(
+                        _folderRepository,
+                        _fileRepository,
+                        RepositoryFactory.Create<UserRepository>(),
+                        RepositoryFactory.Create<SharedItemRepository>(),
+                        _currentUser,
+                        _currentFolder
+                    );
+
+                    unshareAction.SetParameters(itemToUnshare, emailToUnshareWith);
+                    unshareAction.Open();
                     continue;
                 }
 

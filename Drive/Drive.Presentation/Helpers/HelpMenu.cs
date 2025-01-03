@@ -18,6 +18,8 @@ namespace Drive.Presentation.Helpers
                  "edit file ‘file name’ – Edits the specified file.\n" +
                  "delete ‘folder or file name’ – Deletes the specified folder or file.\n" +
                  "rename ‘folder or file name’ to ‘new name’ – Renames the specified folder or file.\n" +
+                 "share ‘folder or file name’ with ‘email’ – Shares a folder or file with the specified user.\n" +
+                 "unshare ‘folder or file name’ with ‘email’ – Stops sharing a folder or file with the specified user.\n" +
                  "back – Return\n");
         }
 

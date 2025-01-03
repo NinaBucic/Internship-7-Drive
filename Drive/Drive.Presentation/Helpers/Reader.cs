@@ -22,6 +22,19 @@ namespace Drive.Presentation.Helpers
             return stringInput == "yes";
         }
 
+        public static string FolderOrFile(string itemName)
+        {
+            Console.Write($"Both a folder and file named '{itemName}' exist. Specify 'folder' or 'file': ");
+            var stringInput = "";
+            stringInput = Console.ReadLine()?.ToLower();
+            while (stringInput != "folder" && stringInput != "file")
+            {
+                Console.Write("Invalid input! Please try again (folder/file): ");
+                stringInput = Console.ReadLine()?.ToLower();
+            }
+            return stringInput;
+        }
+
         public static void ReadInput(string message, out string input)
         {
             Console.Write(message);
