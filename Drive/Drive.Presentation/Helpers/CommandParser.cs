@@ -1,11 +1,5 @@
 ﻿using Drive.Data.Entities.Models;
 using Drive.Domain.Repositories;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using File = Drive.Data.Entities.Models.File;
 
 namespace Drive.Presentation.Helpers
