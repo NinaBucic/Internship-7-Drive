@@ -24,6 +24,12 @@ namespace Drive.Domain.Repositories
             return SaveChanges();
         }
 
+        public ResponseResultType Delete(Folder folder)
+        {
+            DbContext.Folders.Remove(folder);
+            return SaveChanges();
+        }
+
 
         public ICollection<Folder> GetRootFolders(int ownerId)
         {

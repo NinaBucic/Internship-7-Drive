@@ -26,6 +26,12 @@ namespace Drive.Domain.Repositories
             return SaveChanges();
         }
 
+        public ResponseResultType Delete(File file)
+        {
+            DbContext.Files.Remove(file);
+            return SaveChanges();
+        }
+
         public ResponseResultType Update(File file)
         {
             var existingFile = DbContext.Files.Find(file.Id);

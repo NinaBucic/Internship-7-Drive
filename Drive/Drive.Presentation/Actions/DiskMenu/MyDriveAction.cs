@@ -97,6 +97,68 @@ namespace Drive.Presentation.Actions.DiskMenu
                     continue;
                 }
 
+                if (CommandParser.TryParseCommand(command, "delete ", out var itemToDelete))
+                {
+                    if (!CommandParser.TryResolveItem(
+                            itemToDelete,
+                            _folderRepository,
+                            _fileRepository,
+                            _currentUser.Id,
+                            _currentFolder?.Id,
+                            out var folder,
+                            out var file))
+                    {
+                        var choice = Reader.FolderOrFile(itemToDelete);
+                        if (choice == "folder") file = null;
+                        else folder = null;
+                    }
+
+                    if (folder != null)
+                    {
+                        if (!Reader.Confirm($"Are you sure you want to delete the folder '{folder.Name}'?"))
+                        {
+                            continue;
+                        }
+
+                        var result = _folderRepository.Delete(folder);
+
+                        if (result == ResponseResultType.Success)
+                        {
+                            Console.WriteLine($"Folder '{folder.Name}' successfully deleted.");
+                        }
+                        else
+                        {
+                            Writer.WriteError($"Failed to delete folder '{folder.Name}'.");
+                        }
+                    }
+                    else if (file != null)
+                    {
+                        if (!Reader.Confirm($"Are you sure you want to delete the file '{file.Name}'?"))
+                        {
+                            continue;
+                        }
+
+                        var result = _fileRepository.Delete(file);
+
+                        if (result == ResponseResultType.Success)
+                        {
+                            Console.WriteLine($"File '{file.Name}' successfully deleted.");
+                        }
+                        else
+                        {
+                            Writer.WriteError($"Failed to delete file '{file.Name}'.");
+                        }
+                    }
+                    else
+                    {
+                        Writer.WriteError($"Item '{itemToDelete}' not found in the current directory.");
+                    }
+
+                    Console.ReadKey();
+                    continue;
+                }
+
+
                 if (CommandParser.TryParseShareCommand(command, out var itemToShare, out var emailToShareWith))
                 {
                     var shareAction = new ShareItemAction(
