@@ -10,6 +10,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Drive.Data.Entities.Models;
+using Drive.Domain.Factories;
+using Drive.Domain.Repositories;
 
 namespace Drive.Presentation.Factories
 {
@@ -20,7 +22,7 @@ namespace Drive.Presentation.Factories
             var actions = new List<IAction>
             {
                 DiskMenuFactory.Create(currentUser),
-                new SharedWithMeAction(),
+                new SharedWithMeAction(RepositoryFactory.Create<SharedItemRepository>(),RepositoryFactory.Create<FileRepository>(),currentUser),
                 new ProfileSettingsAction(),
                 new LogoutAction()
             };

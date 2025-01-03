@@ -23,6 +23,15 @@ namespace Drive.Presentation.Helpers
                  "back – Return\n");
         }
 
+        public static void DisplaySharedCommands()
+        {
+            Console.WriteLine("\nAvailable Commands: (write names without ‘ ’) \n" +
+                "help – Displays all available commands.\n" +
+                "edit file ‘file name’ – Edits the specified file.\n" +
+                "delete ‘folder or file name’ – Removes the shared folder or file from your list.\n" +
+                "back – Return\n");
+        }
+
         public static void DisplayEditFileCommands()
         {
             Console.WriteLine("\nFile Editor Commands:\n" +
@@ -30,6 +39,15 @@ namespace Drive.Presentation.Helpers
                 ":save and exit - Save changes and exit\n" +
                 ":exit - Exit without saving\n"+
                 "Backspace on empty input - Remove last line");
+        }
+
+        public static void DisplayCommentCommands()
+        {
+            Console.WriteLine("\nComment Commands:\n" +
+                "add comment - Add a new comment.\n" +
+                "edit comment ‘comment ID’ - Edit a specific comment.\n" +
+                "delete comment ‘comment ID’ - Delete a specific comment.\n" +
+                "back - Return to the previous menu.\n");
         }
     }
 }

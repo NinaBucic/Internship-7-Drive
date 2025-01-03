@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using File = Drive.Data.Entities.Models.File;
 
 namespace Drive.Domain.Repositories
 {
@@ -39,6 +40,20 @@ namespace Drive.Domain.Repositories
             return SaveChanges();
         }
 
+        public ResponseResultType RemoveFromRecipient(int recipientId, int? folderId, int? fileId)
+        {
+            var sharedItem = DbContext.SharedItems.FirstOrDefault(si =>
+                si.RecipientId == recipientId &&
+                si.FolderId == folderId &&
+                si.FileId == fileId);
+
+            if (sharedItem == null)
+                return ResponseResultType.NotFound;
+
+            DbContext.SharedItems.Remove(sharedItem);
+            return SaveChanges();
+        }
+
         public SharedItem? GetSharedItem(int ownerId, int recipientId, int? folderId, int? fileId)
         {
             return DbContext.SharedItems.FirstOrDefault(s =>
@@ -47,6 +62,23 @@ namespace Drive.Domain.Repositories
                 s.FolderId == folderId &&
                 s.FileId == fileId);
         }
+
+        public ICollection<Folder> GetSharedFolders(int recipientId)
+        {
+            return DbContext.SharedItems
+                .Where(si => si.RecipientId == recipientId && si.FolderId != null)
+                .Select(si => si.Folder!)
+                .ToList();
+        }
+
+        public ICollection<File> GetSharedFiles(int recipientId)
+        {
+            return DbContext.SharedItems
+                .Where(si => si.RecipientId == recipientId && si.FileId != null)
+                .Select(si => si.File!)
+                .ToList();
+        }
+
 
     }
 }
