@@ -3,6 +3,7 @@ using Drive.Domain.Enums;
 using Drive.Domain.Factories;
 using Drive.Domain.Repositories;
 using Drive.Presentation.Abstractions;
+using Drive.Presentation.Actions.CommentsMenu;
 using Drive.Presentation.Actions.DiskMenu;
 using Drive.Presentation.Helpers;
 
@@ -82,6 +83,27 @@ namespace Drive.Presentation.Actions.SharedMenu
                     HandleDeleteSharedItem(itemName);
                     continue;
                 }
+
+                if (CommandParser.TryParseCommand(command, "view comments ", out var fileName2))
+                {
+                    var file = _sharedItemRepository.GetSharedFiles(_currentUser.Id)
+                        .FirstOrDefault(f => f.Name.ToLower() == fileName2.ToLower());
+
+                    if (file == null)
+                    {
+                        Writer.WriteError($"File '{fileName2}' not found in your shared items.");
+                        continue;
+                    }
+
+                    var viewCommentsAction = new ViewCommentsAction(
+                        RepositoryFactory.Create<CommentRepository>(),
+                        file,
+                        _currentUser
+                    );
+                    viewCommentsAction.Open();
+                    continue;
+                }
+
 
                 Writer.WriteError("Invalid command. Type 'help' to see available commands.");
                 continue;

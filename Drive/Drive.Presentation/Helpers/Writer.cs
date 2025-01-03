@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 using File = Drive.Data.Entities.Models.File;
 
 namespace Drive.Presentation.Helpers
@@ -38,6 +39,25 @@ namespace Drive.Presentation.Helpers
             foreach (var file in files)
             {
                 Console.WriteLine($" - [{file.Id}] {file.Name} (Last Modified: {file.LastModifiedAt})");
+            }
+            Console.WriteLine();
+        }
+
+        public static void DisplayComments(IEnumerable<Comment> comments)
+        {
+            if (!comments.Any())
+            {
+                Console.WriteLine("No comments found for this file.\n");
+                return;
+            }
+
+            foreach (var comment in comments)
+            {
+                var authorEmail = comment.Author?.Email ?? "Unknown Author";
+                var date = comment.LastModified?.ToString("yyyy-MM-dd HH:mm") ?? comment.CreatedAt.ToString("yyyy-MM-dd HH:mm");
+
+                Console.WriteLine($"ID: {comment.Id} | Author: {authorEmail} | Date: {date}");
+                Console.WriteLine($"Content: {comment.Content}\n");
             }
             Console.WriteLine();
         }

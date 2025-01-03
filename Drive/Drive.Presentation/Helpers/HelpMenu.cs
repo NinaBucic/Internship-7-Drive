@@ -20,6 +20,7 @@ namespace Drive.Presentation.Helpers
                  "rename ‘folder or file name’ to ‘new name’ – Renames the specified folder or file.\n" +
                  "share ‘folder or file name’ with ‘email’ – Shares a folder or file with the specified user.\n" +
                  "unshare ‘folder or file name’ with ‘email’ – Stops sharing a folder or file with the specified user.\n" +
+                 "view comments ‘file name’ – Displays all comments for a file.\n" +
                  "back – Return\n");
         }
 
@@ -29,6 +30,7 @@ namespace Drive.Presentation.Helpers
                 "help – Displays all available commands.\n" +
                 "edit file ‘file name’ – Edits the specified file.\n" +
                 "delete ‘folder or file name’ – Removes the shared folder or file from your list.\n" +
+                "view comments ‘file name’ – Displays all comments for a file.\n" +
                 "back – Return\n");
         }
 
@@ -45,8 +47,8 @@ namespace Drive.Presentation.Helpers
         {
             Console.WriteLine("\nComment Commands:\n" +
                 "add comment - Add a new comment.\n" +
-                "edit comment ‘comment ID’ - Edit a specific comment.\n" +
-                "delete comment ‘comment ID’ - Delete a specific comment.\n" +
+                "edit comment comment_ID - Edit a specific comment.\n" +
+                "delete comment comment_ID - Delete a specific comment.\n" +
                 "back - Return to the previous menu.\n");
         }
     }

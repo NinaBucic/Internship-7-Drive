@@ -3,6 +3,7 @@ using Drive.Domain.Enums;
 using Drive.Domain.Factories;
 using Drive.Domain.Repositories;
 using Drive.Presentation.Abstractions;
+using Drive.Presentation.Actions.CommentsMenu;
 using Drive.Presentation.Helpers;
 using System;
 using System.Collections.Generic;
@@ -82,6 +83,25 @@ namespace Drive.Presentation.Actions.DiskMenu
                     HandleCreateFile(fileName);
                     continue;
                 }
+
+                if (CommandParser.TryParseCommand(command, "view comments ", out var fileName2))
+                {
+                    var file = _fileRepository.GetByNameAndParent(fileName2, _currentUser.Id, _currentFolder?.Id);
+                    if (file == null)
+                    {
+                        Writer.WriteError($"File '{fileName2}' not found in the current directory.");
+                        continue;
+                    }
+
+                    var viewCommentsAction = new ViewCommentsAction(
+                        RepositoryFactory.Create<CommentRepository>(),
+                        file,
+                        _currentUser
+                    );
+                    viewCommentsAction.Open();
+                    continue;
+                }
+
 
                 if (CommandParser.TryParseCommand(command, "edit file ", out var fileToEdit))
                 {
@@ -192,7 +212,6 @@ namespace Drive.Presentation.Actions.DiskMenu
                 }
 
                 Writer.WriteError("Invalid command. Type 'help' to see available commands.");
-                continue;
             }
         }
 
