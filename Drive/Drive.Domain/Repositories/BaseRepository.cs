@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Drive.Data.Entities;
+﻿using Drive.Data.Entities;
 using Drive.Domain.Enums;
 
 namespace Drive.Domain.Repositories

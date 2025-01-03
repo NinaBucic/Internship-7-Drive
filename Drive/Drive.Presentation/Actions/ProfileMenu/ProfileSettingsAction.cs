@@ -1,22 +1,19 @@
 ﻿using Drive.Presentation.Abstractions;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Drive.Presentation.Actions.ProfileMenu
 {
-    public class ProfileSettingsAction : IAction
+    public class ProfileSettingsAction : BaseMenuAction
     {
-        public int MenuIndex { get; set; }
-        public string Name { get; set; } = "Profile Settings";
+        public ProfileSettingsAction(IList<IAction> actions) : base(actions)
+        {
+            Name = "Profile Settings";
+        }
 
-        public void Open()
+        public override void Open()
         {
             Console.Clear();
-            Console.WriteLine("You are in Profile Settings menu. [Functionality pending]");
-            Console.ReadKey();
+            Console.WriteLine("Profile Settings Menu");
+            base.Open();
         }
     }
 }

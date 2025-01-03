@@ -5,11 +5,6 @@ using Drive.Domain.Repositories;
 using Drive.Presentation.Abstractions;
 using Drive.Presentation.Actions.CommentsMenu;
 using Drive.Presentation.Helpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using File = Drive.Data.Entities.Models.File;
 
 namespace Drive.Presentation.Actions.DiskMenu

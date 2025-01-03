@@ -3,7 +3,6 @@ using Drive.Data.Seeds;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Configuration;
-using System.Text.RegularExpressions;
 using File = Drive.Data.Entities.Models.File;
 
 namespace Drive.Data.Entities

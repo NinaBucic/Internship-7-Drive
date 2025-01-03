@@ -23,7 +23,7 @@ namespace Drive.Presentation.Factories
             {
                 DiskMenuFactory.Create(currentUser),
                 new SharedWithMeAction(RepositoryFactory.Create<SharedItemRepository>(),RepositoryFactory.Create<FileRepository>(),currentUser),
-                new ProfileSettingsAction(),
+                ProfileSettingsMenuFactory.Create(currentUser),
                 new LogoutAction()
             };
 

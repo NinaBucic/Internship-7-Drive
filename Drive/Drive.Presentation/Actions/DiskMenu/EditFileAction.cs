@@ -1,10 +1,7 @@
-﻿using Drive.Data.Entities.Models;
-using Drive.Domain.Enums;
+﻿using Drive.Domain.Enums;
 using Drive.Domain.Repositories;
 using Drive.Presentation.Abstractions;
 using Drive.Presentation.Helpers;
-using System;
-using System.Text;
 using File = Drive.Data.Entities.Models.File;
 
 namespace Drive.Presentation.Actions.DiskMenu

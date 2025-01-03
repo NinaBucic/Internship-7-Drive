@@ -1,11 +1,6 @@
 ﻿using Drive.Data.Entities;
 using Drive.Data.Entities.Models;
 using Drive.Domain.Enums;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using File = Drive.Data.Entities.Models.File;
 
 namespace Drive.Domain.Repositories
