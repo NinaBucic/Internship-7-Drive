@@ -17,17 +17,23 @@ namespace Drive.Domain.Repositories
 
         public ResponseResultType Add(File file)
         {
-            var existingFile = DbContext.Files.FirstOrDefault(f =>
-                f.Name.ToLower().Equals(file.Name) &&
-                f.OwnerId == file.OwnerId &&
-                f.FolderId == file.FolderId);
-
-            if (existingFile != null)
+            if (GetByNameAndParent(file.Name, file.OwnerId, file.FolderId) != null)
             {
                 return ResponseResultType.AlreadyExists;
             }
 
             DbContext.Files.Add(file);
+            return SaveChanges();
+        }
+
+        public ResponseResultType Update(File file)
+        {
+            var existingFile = DbContext.Files.Find(file.Id);
+            if (existingFile == null)
+                return ResponseResultType.NotFound;
+
+            existingFile.Content = file.Content;
+            existingFile.LastModifiedAt = file.LastModifiedAt;
 
             return SaveChanges();
         }
@@ -47,6 +53,14 @@ namespace Drive.Domain.Repositories
                 .Where(f => f.FolderId == folderId && f.OwnerId == ownerId)
                 .OrderByDescending(f => f.LastModifiedAt)
                 .ToList();
+        }
+
+        public File? GetByNameAndParent(string name, int ownerId, int? folderId)
+        {
+            return DbContext.Files.FirstOrDefault(f =>
+                f.Name.ToLower().Equals(name) &&
+                f.OwnerId == ownerId &&
+                f.FolderId == folderId);
         }
 
 

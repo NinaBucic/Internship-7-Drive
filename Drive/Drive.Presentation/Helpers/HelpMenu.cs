@@ -20,5 +20,14 @@ namespace Drive.Presentation.Helpers
                  "rename ‘folder or file name’ to ‘new name’ – Renames the specified folder or file.\n" +
                  "back – Return\n");
         }
+
+        public static void DisplayEditFileCommands()
+        {
+            Console.WriteLine("\nFile Editor Commands:\n" +
+                ":help - Display all commands\n" +
+                ":save and exit - Save changes and exit\n" +
+                ":exit - Exit without saving\n"+
+                "Backspace on empty input - Remove last line");
+        }
     }
 }

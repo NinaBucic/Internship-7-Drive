@@ -60,7 +60,7 @@ namespace Drive.Presentation.Actions.DiskMenu
 
                 if (CommandParser.TryParseCommand(command, "enter folder ", out var folderName))
                 {
-                    var folder = _folderRepository.GetByNameAndParentId(folderName, _currentUser.Id, _currentFolder?.Id);
+                    var folder = _folderRepository.GetByNameAndParent(folderName, _currentUser.Id, _currentFolder?.Id);
                     if (folder == null)
                     {
                         Writer.WriteError($"Folder '{folderName}' not found.");
@@ -79,6 +79,20 @@ namespace Drive.Presentation.Actions.DiskMenu
                 if (CommandParser.TryParseCommand(command, "create file ", out var fileName))
                 {
                     HandleCreateFile(fileName);
+                    continue;
+                }
+
+                if (CommandParser.TryParseCommand(command, "edit file ", out var fileToEdit))
+                {
+                    var file = _fileRepository.GetByNameAndParent(fileToEdit, _currentUser.Id, _currentFolder?.Id);
+                    if (file == null)
+                    {
+                        Writer.WriteError($"File '{fileToEdit}' not found.");
+                        continue;
+                    }
+
+                    var editAction = new EditFileAction(file,_fileRepository);
+                    editAction.Open();
                     continue;
                 }
 
@@ -171,7 +185,7 @@ namespace Drive.Presentation.Actions.DiskMenu
                 FolderId = _currentFolder?.Id,
                 CreatedAt = DateTime.UtcNow,
                 LastModifiedAt = DateTime.UtcNow,
-                Content = string.Empty
+                Content = null
             };
 
             var responseResult = _fileRepository.Add(newFile);

@@ -17,18 +17,10 @@ namespace Drive.Domain.Repositories
 
         public ResponseResultType Add(Folder folder)
         {
-            var existingFolder = DbContext.Folders.FirstOrDefault(f =>
-                f.Name.ToLower().Equals(folder.Name) &&
-                f.OwnerId == folder.OwnerId &&
-                f.ParentFolderId == folder.ParentFolderId);
-
-            if (existingFolder != null)
-            {
+            if (GetByNameAndParent(folder.Name, folder.OwnerId, folder.ParentFolderId) != null)
                 return ResponseResultType.AlreadyExists;
-            }
 
             DbContext.Folders.Add(folder);
-
             return SaveChanges();
         }
 
@@ -49,7 +41,7 @@ namespace Drive.Domain.Repositories
                 .ToList();
         }
 
-        public Folder? GetByNameAndParentId(string name, int ownerId, int? parentId)
+        public Folder? GetByNameAndParent(string name, int ownerId, int? parentId)
         {
             return DbContext.Folders.FirstOrDefault(f =>
                 f.Name.ToLower().Equals(name) &&
