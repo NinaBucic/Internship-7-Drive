@@ -1,4 +1,5 @@
 ﻿using Drive.Data.Entities;
+using Drive.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,24 @@ namespace Drive.Domain.Repositories
         public FileRepository(DriveDbContext dbContext) : base(dbContext)
         {
         }
+
+        public ResponseResultType Add(File file)
+        {
+            var existingFile = DbContext.Files.FirstOrDefault(f =>
+                f.Name.ToLower().Equals(file.Name) &&
+                f.OwnerId == file.OwnerId &&
+                f.FolderId == file.FolderId);
+
+            if (existingFile != null)
+            {
+                return ResponseResultType.AlreadyExists;
+            }
+
+            DbContext.Files.Add(file);
+
+            return SaveChanges();
+        }
+
 
         public ICollection<File> GetFilesWithoutFolder(int ownerId)
         {

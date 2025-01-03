@@ -1,5 +1,6 @@
 ﻿using Drive.Data.Entities;
 using Drive.Data.Entities.Models;
+using Drive.Domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,24 @@ namespace Drive.Domain.Repositories
         public FolderRepository(DriveDbContext dbContext) : base(dbContext)
         {
         }
+
+        public ResponseResultType Add(Folder folder)
+        {
+            var existingFolder = DbContext.Folders.FirstOrDefault(f =>
+                f.Name.ToLower().Equals(folder.Name) &&
+                f.OwnerId == folder.OwnerId &&
+                f.ParentFolderId == folder.ParentFolderId);
+
+            if (existingFolder != null)
+            {
+                return ResponseResultType.AlreadyExists;
+            }
+
+            DbContext.Folders.Add(folder);
+
+            return SaveChanges();
+        }
+
 
         public ICollection<Folder> GetRootFolders(int ownerId)
         {
@@ -30,11 +49,14 @@ namespace Drive.Domain.Repositories
                 .ToList();
         }
 
-        public Folder? GetByName(string folderName, int ownerId)
+        public Folder? GetByNameAndParentId(string name, int ownerId, int? parentId)
         {
-            return DbContext.Folders
-                .FirstOrDefault(f => f.Name.ToLower().Equals(folderName) && f.OwnerId == ownerId);
+            return DbContext.Folders.FirstOrDefault(f =>
+                f.Name.ToLower().Equals(name) &&
+                f.OwnerId == ownerId &&
+                f.ParentFolderId == parentId);
         }
+
 
     }
 }

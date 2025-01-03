@@ -10,7 +10,7 @@ namespace Drive.Presentation.Helpers
     {
         public static void DisplayGeneralCommands()
         {
-            Console.WriteLine("\nAvailable Commands: (write without ‘ ’) \n" +
+            Console.WriteLine("\nAvailable Commands: (write names without ‘ ’) \n" +
                  "help – Displays all available commands.\n" +
                  "create folder ‘folder name’ – Creates a folder in the current location.\n" +
                  "create file ‘file name’ – Creates a file in the current location.\n" +

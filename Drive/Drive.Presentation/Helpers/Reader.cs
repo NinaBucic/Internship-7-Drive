@@ -9,6 +9,19 @@ namespace Drive.Presentation.Helpers
 {
     public static class Reader
     {
+        public static bool Confirm(string message)
+        {
+            Console.Write($"{message} (yes/no): ");
+            var stringInput = "";
+            stringInput = Console.ReadLine()?.ToLower();
+            while (stringInput != "yes" && stringInput != "no")
+            {
+                Console.Write("Invalid input! Please try again (yes/no): ");
+                stringInput = Console.ReadLine()?.ToLower();
+            }
+            return stringInput == "yes";
+        }
+
         public static void ReadInput(string message, out string input)
         {
             Console.Write(message);
