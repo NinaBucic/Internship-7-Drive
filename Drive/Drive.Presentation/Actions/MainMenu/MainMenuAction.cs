@@ -17,6 +17,7 @@ namespace Drive.Presentation.Actions.MainMenu
 
         public override void Open()
         {
+            Console.Clear();
             Console.WriteLine("Welcome to Drive!");
             base.Open();
         }

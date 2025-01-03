@@ -76,7 +76,7 @@ namespace Drive.Presentation.Actions.MainMenu
                 Console.WriteLine("Registration successful! Press any key to continue...");
                 Console.ReadKey();
 
-                var userMenu = UserMenuFactory.Create();
+                var userMenu = UserMenuFactory.Create(user);
                 userMenu.Open();
                 break;
             }
